@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisdontech.wisdondemo.dao.SysMeterDefMapper" >
+  <resultMap id="BaseResultMap" type="com.wisdontech.wisdondemo.model.SysMeterDef" >
+    <id column="INNER_ID" property="innerId" jdbcType="INTEGER" />
+    <id column="TENANT_ID" property="tenantId" jdbcType="BIGINT" />
+    <result column="METER_TYPE" property="meterType" jdbcType="VARCHAR" />
+    <result column="METER_BAND" property="meterBand" jdbcType="VARCHAR" />
+    <result column="METER_FLAG" property="meterFlag" jdbcType="SMALLINT" />
+    <result column="SCREEN_COUNT" property="screenCount" jdbcType="INTEGER" />
+    <result column="SCREEN_GAP" property="screenGap" jdbcType="INTEGER" />
+    <result column="MAX_VALUE" property="maxValue" jdbcType="BIGINT" />
+    <result column="MEASURE_ID" property="measureId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    INNER_ID, TENANT_ID, METER_TYPE, METER_BAND, METER_FLAG, SCREEN_COUNT, SCREEN_GAP, 
+    MAX_VALUE, MEASURE_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wisdontech.wisdondemo.model.SysMeterDefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sys_meter_def
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.wisdontech.wisdondemo.model.SysMeterDefKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_meter_def
+    where INNER_ID = #{innerId,jdbcType=INTEGER}
+      and TENANT_ID = #{tenantId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.wisdontech.wisdondemo.model.SysMeterDefKey" >
+    delete from sys_meter_def
+    where INNER_ID = #{innerId,jdbcType=INTEGER}
+      and TENANT_ID = #{tenantId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wisdontech.wisdondemo.model.SysMeterDefExample" >
+    delete from sys_meter_def
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wisdontech.wisdondemo.model.SysMeterDef" >
+    insert into sys_meter_def (INNER_ID, TENANT_ID, METER_TYPE, 
+      METER_BAND, METER_FLAG, SCREEN_COUNT, 
+      SCREEN_GAP, MAX_VALUE, MEASURE_ID
+      )
+    values (#{innerId,jdbcType=INTEGER}, #{tenantId,jdbcType=BIGINT}, #{meterType,jdbcType=VARCHAR}, 
+      #{meterBand,jdbcType=VARCHAR}, #{meterFlag,jdbcType=SMALLINT}, #{screenCount,jdbcType=INTEGER}, 
+      #{screenGap,jdbcType=INTEGER}, #{maxValue,jdbcType=BIGINT}, #{measureId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wisdontech.wisdondemo.model.SysMeterDef" >
+    insert into sys_meter_def
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="innerId != null" >
+        INNER_ID,
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID,
+      </if>
+      <if test="meterType != null" >
+        METER_TYPE,
+      </if>
+      <if test="meterBand != null" >
+        METER_BAND,
+      </if>
+      <if test="meterFlag != null" >
+        METER_FLAG,
+      </if>
+      <if test="screenCount != null" >
+        SCREEN_COUNT,
+      </if>
+      <if test="screenGap != null" >
+        SCREEN_GAP,
+      </if>
+      <if test="maxValue != null" >
+        MAX_VALUE,
+      </if>
+      <if test="measureId != null" >
+        MEASURE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="innerId != null" >
+        #{innerId,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="meterType != null" >
+        #{meterType,jdbcType=VARCHAR},
+      </if>
+      <if test="meterBand != null" >
+        #{meterBand,jdbcType=VARCHAR},
+      </if>
+      <if test="meterFlag != null" >
+        #{meterFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="screenCount != null" >
+        #{screenCount,jdbcType=INTEGER},
+      </if>
+      <if test="screenGap != null" >
+        #{screenGap,jdbcType=INTEGER},
+      </if>
+      <if test="maxValue != null" >
+        #{maxValue,jdbcType=BIGINT},
+      </if>
+      <if test="measureId != null" >
+        #{measureId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wisdontech.wisdondemo.model.SysMeterDefExample" resultType="java.lang.Integer" >
+    select count(*) from sys_meter_def
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_meter_def
+    <set >
+      <if test="record.innerId != null" >
+        INNER_ID = #{record.innerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenantId != null" >
+        TENANT_ID = #{record.tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="record.meterType != null" >
+        METER_TYPE = #{record.meterType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meterBand != null" >
+        METER_BAND = #{record.meterBand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meterFlag != null" >
+        METER_FLAG = #{record.meterFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="record.screenCount != null" >
+        SCREEN_COUNT = #{record.screenCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.screenGap != null" >
+        SCREEN_GAP = #{record.screenGap,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxValue != null" >
+        MAX_VALUE = #{record.maxValue,jdbcType=BIGINT},
+      </if>
+      <if test="record.measureId != null" >
+        MEASURE_ID = #{record.measureId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_meter_def
+    set INNER_ID = #{record.innerId,jdbcType=INTEGER},
+      TENANT_ID = #{record.tenantId,jdbcType=BIGINT},
+      METER_TYPE = #{record.meterType,jdbcType=VARCHAR},
+      METER_BAND = #{record.meterBand,jdbcType=VARCHAR},
+      METER_FLAG = #{record.meterFlag,jdbcType=SMALLINT},
+      SCREEN_COUNT = #{record.screenCount,jdbcType=INTEGER},
+      SCREEN_GAP = #{record.screenGap,jdbcType=INTEGER},
+      MAX_VALUE = #{record.maxValue,jdbcType=BIGINT},
+      MEASURE_ID = #{record.measureId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wisdontech.wisdondemo.model.SysMeterDef" >
+    update sys_meter_def
+    <set >
+      <if test="meterType != null" >
+        METER_TYPE = #{meterType,jdbcType=VARCHAR},
+      </if>
+      <if test="meterBand != null" >
+        METER_BAND = #{meterBand,jdbcType=VARCHAR},
+      </if>
+      <if test="meterFlag != null" >
+        METER_FLAG = #{meterFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="screenCount != null" >
+        SCREEN_COUNT = #{screenCount,jdbcType=INTEGER},
+      </if>
+      <if test="screenGap != null" >
+        SCREEN_GAP = #{screenGap,jdbcType=INTEGER},
+      </if>
+      <if test="maxValue != null" >
+        MAX_VALUE = #{maxValue,jdbcType=BIGINT},
+      </if>
+      <if test="measureId != null" >
+        MEASURE_ID = #{measureId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where INNER_ID = #{innerId,jdbcType=INTEGER}
+      and TENANT_ID = #{tenantId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wisdontech.wisdondemo.model.SysMeterDef" >
+    update sys_meter_def
+    set METER_TYPE = #{meterType,jdbcType=VARCHAR},
+      METER_BAND = #{meterBand,jdbcType=VARCHAR},
+      METER_FLAG = #{meterFlag,jdbcType=SMALLINT},
+      SCREEN_COUNT = #{screenCount,jdbcType=INTEGER},
+      SCREEN_GAP = #{screenGap,jdbcType=INTEGER},
+      MAX_VALUE = #{maxValue,jdbcType=BIGINT},
+      MEASURE_ID = #{measureId,jdbcType=INTEGER}
+    where INNER_ID = #{innerId,jdbcType=INTEGER}
+      and TENANT_ID = #{tenantId,jdbcType=BIGINT}
+  </update>
+</mapper>
