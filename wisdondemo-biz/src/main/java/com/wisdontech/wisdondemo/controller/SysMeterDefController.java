@@ -1,6 +1,6 @@
 package com.wisdontech.wisdondemo.controller;
 
-import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wisdontech.wisdondemo.model.SysMeterDef;
 import com.wisdontech.wisdondemo.model.SysMeterDefExample;
 import com.wisdontech.wisdondemo.model.SysMeterDefKey;
@@ -8,9 +8,10 @@ import com.wisdontech.wisdondemo.service.SysMeterDefService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/sysmeterdef")
@@ -29,10 +30,10 @@ public class SysMeterDefController {
     }
 
     @RequestMapping("/selectByExample")
-    public List<SysMeterDef> selectByExample(){
-        PageHelper.startPage(0, 1);
+    public PageInfo<SysMeterDef> selectByExample(@RequestParam(defaultValue = "1", value = "currentPage") int currentPage,
+                                                 @RequestParam(defaultValue = "1", value = "pageSize") int pageSize) {
         SysMeterDefExample example = new SysMeterDefExample();
-        return sysMeterDefService.selectByExample(example);
+        return sysMeterDefService.selectByExample(example, currentPage, pageSize);
     }
 
     @RequestMapping("/hello")
